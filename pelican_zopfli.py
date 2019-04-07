@@ -9,16 +9,16 @@ A plugin to create .gz cache files for optimization.
 
 import logging
 import os
-
-from joblib import Parallel, delayed, parallel_backend
+from typing import Any, Mapping
 
 import zopfli
-from pelican import signals
+from joblib import Parallel, delayed, parallel_backend
+from pelican import signals, Pelican
 
 logger = logging.getLogger(__name__)
 
 # A list of file types to exclude from possible compression
-EXCLUDE_TYPES = [
+EXCLUDE_TYPES = {
     # Compressed types
     '.bz2',
     '.gz',
@@ -45,13 +45,13 @@ EXCLUDE_TYPES = [
     # but it's not worth it.
     '.woff',
     '.woff2',
-]
+}
 
 # Determines level of compression
 ZOPFLI_ITERATIONS = 15
 
 
-def create_gzip_cache(pelican):
+def create_gzip_cache(pelican: Pelican):
     """Create a gzip cache file for every file that a webserver would
     reasonably want to cache (e.g., text type files).
 
@@ -69,7 +69,7 @@ def create_gzip_cache(pelican):
         Parallel()(delayed(create_gzip_file)(e, overwrite) for e in to_process)
 
 
-def should_compress(filename):
+def should_compress(filename: str):
     """Check if the filename is a type of file that should be compressed.
 
     :param filename: A file name to check against
@@ -81,15 +81,16 @@ def should_compress(filename):
     return True
 
 
-def should_overwrite(settings):
+def should_overwrite(settings: Mapping[str, Any]):
     """Check if the gzipped files should overwrite the originals.
 
     :param settings: The pelican instance settings
     """
-    return settings.get('GZIP_CACHE_OVERWRITE', False)
+    return settings.get('PELICAN_ZOPFLI_OVERWRITE',
+                        settings.get('GZIP_CACHE_OVERWRITE', False))
 
 
-def create_gzip_file(filepath, overwrite):
+def create_gzip_file(filepath: str, overwrite: bool):
     """Create a gzipped file in the same directory with a filepath.gz name.
 
     :param filepath: A file to compress
