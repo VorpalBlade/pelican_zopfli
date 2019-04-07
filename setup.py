@@ -5,7 +5,7 @@ import setuptools
 setuptools.setup(
     # Basic package information:
     name='pelican_zopfli',
-    version='1.0',
+    version='1.0.1',
     py_modules=('pelican_zopfli',),
 
     # Packaging options:
