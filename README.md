@@ -1,5 +1,8 @@
 # Zopfli Gzip cache
 
+[![Build Status](https://travis-ci.com/VorpalBlade/pelican_zopfli.svg?branch=master)](https://travis-ci.com/VorpalBlade/pelican_zopfli)
+[![codecov](https://codecov.io/gh/VorpalBlade/pelican_zopfli/branch/master/graph/badge.svg)](https://codecov.io/gh/VorpalBlade/pelican_zopfli)
+
 This is a variant of [gzip_cache] but using [zopfli] for better compression.
 
 Certain web servers (e.g., Nginx) can use a static cache of gzip-compressed
