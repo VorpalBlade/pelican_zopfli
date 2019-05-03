@@ -13,6 +13,8 @@ setuptools.setup(
 
     # Package dependencies:
     install_requires=['zopflipy>=1.1', 'pelican>=4.0', 'joblib>=0.13.2'],
+    setup_requires=["pytest-runner"],
+    tests_require=['pytest'],
 
     # Metadata for PyPI:
     author='Arvid Norlander',
