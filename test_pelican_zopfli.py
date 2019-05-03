@@ -14,7 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 """Core plugins unit tests"""
 
 import os
@@ -46,7 +45,6 @@ def temporary_folder():
 
 
 class TestPelicanZopfli(unittest.TestCase):
-
     def test_should_compress(self):
         # Some filetypes should compress and others shouldn't.
         self.assertTrue(pelican_zopfli.should_compress('foo.html'))
@@ -75,7 +73,8 @@ class TestPelicanZopfli(unittest.TestCase):
         # so it is safe to assume that the file exists (otherwise walk would
         # not report it). Therefore, create a dummy file to use.
         with temporary_folder() as tempdir:
-            html_fd, a_html_filename = tempfile.mkstemp(suffix='.html', dir=tempdir)
+            html_fd, a_html_filename = tempfile.mkstemp(suffix='.html',
+                                                        dir=tempdir)
             with os.fdopen(html_fd, mode='w') as tmp_f:
                 tmp_f.write("Some compressible test data " + '0' * 32)
             pelican_zopfli.create_gzip_file(a_html_filename, False)
@@ -88,7 +87,8 @@ class TestPelicanZopfli(unittest.TestCase):
         # so it is safe to assume that the file exists (otherwise walk would
         # not report it). Therefore, create a dummy file to use.
         with temporary_folder() as tempdir:
-            html_fd, a_html_filename = tempfile.mkstemp(suffix='.html', dir=tempdir)
+            html_fd, a_html_filename = tempfile.mkstemp(suffix='.html',
+                                                        dir=tempdir)
             # Write some uncompressible data
             with os.fdopen(html_fd, mode='w') as tmp_f:
                 tmp_f.write("X")
@@ -102,7 +102,8 @@ class TestPelicanZopfli(unittest.TestCase):
         # a timestamp in the compressed file by default. This can cause
         # problems for some caching strategies.
         with temporary_folder() as tempdir:
-            html_fd, a_html_filename = tempfile.mkstemp(suffix='.html', dir=tempdir)
+            html_fd, a_html_filename = tempfile.mkstemp(suffix='.html',
+                                                        dir=tempdir)
             with os.fdopen(html_fd, mode='w') as tmp_f:
                 tmp_f.write("Some compressible test data " + '0' * 32)
             a_gz_filename = a_html_filename + '.gz'

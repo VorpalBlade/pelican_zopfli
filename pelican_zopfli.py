@@ -14,7 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 """
 pelican_zopfli
 --------------
@@ -114,8 +113,8 @@ def create_gzip_file(filepath: str, overwrite: bool):
     compressed_path = filepath + '.gz'
 
     with open(filepath, 'rb') as uncompressed:
-        gzip_compress_obj = zopfli.ZopfliCompressor(zopfli.ZOPFLI_FORMAT_GZIP,
-                                                    iterations=ZOPFLI_ITERATIONS)
+        gzip_compress_obj = zopfli.ZopfliCompressor(
+            zopfli.ZOPFLI_FORMAT_GZIP, iterations=ZOPFLI_ITERATIONS)
 
         uncompressed_data = uncompressed.read()
         gzipped_data = gzip_compress_obj.compress(uncompressed_data)
@@ -133,7 +132,8 @@ def create_gzip_file(filepath: str, overwrite: bool):
                 logger.critical('Gzip compression failed: %s' % ex)
 
         if overwrite:
-            logger.debug('Overwriting: %s with %s' % (filepath, compressed_path))
+            logger.debug('Overwriting: %s with %s' %
+                         (filepath, compressed_path))
             os.remove(filepath)
             os.rename(compressed_path, filepath)
 

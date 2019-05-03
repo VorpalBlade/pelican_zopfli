@@ -6,7 +6,7 @@ setuptools.setup(
     # Basic package information:
     name='pelican_zopfli',
     version='1.0.1',
-    py_modules=('pelican_zopfli',),
+    py_modules=('pelican_zopfli', ),
 
     # Packaging options:
     include_package_data=True,
@@ -22,8 +22,8 @@ setuptools.setup(
     keywords='pelican blog static compress zopfli',
     description=('An static resource compression plugin for Pelican, the '
                  'static site generator.'),
-    long_description=open(normpath(join(dirname(abspath(__file__)),
-                                        'README.md'))).read(),
+    long_description=open(
+        normpath(join(dirname(abspath(__file__)), 'README.md'))).read(),
     long_description_content_type="text/markdown",
     classifiers=[
         "Programming Language :: Python :: 3",
