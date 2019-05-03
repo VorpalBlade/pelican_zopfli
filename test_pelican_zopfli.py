@@ -53,7 +53,7 @@ def test_creates_gzip_file(tmpdir):
     # The plugin walks over the output content after the finalized signal
     # so it is safe to assume that the file exists (otherwise walk would
     # not report it). Therefore, create a dummy file to use.
-    html_fd, a_html_filename = tempfile.mkstemp(suffix='.html', dir=tmpdir)
+    html_fd, a_html_filename = tempfile.mkstemp(suffix='.html', dir=str(tmpdir))
     with os.fdopen(html_fd, mode='w') as tmp_f:
         tmp_f.write("Some compressible test data " + '0' * 32)
     pelican_zopfli.create_gzip_file(a_html_filename, False)
@@ -66,7 +66,7 @@ def test_skips_gzip_file_when_uncompressible(tmpdir):
     # The plugin walks over the output content after the finalized signal
     # so it is safe to assume that the file exists (otherwise walk would
     # not report it). Therefore, create a dummy file to use.
-    html_fd, a_html_filename = tempfile.mkstemp(suffix='.html', dir=tmpdir)
+    html_fd, a_html_filename = tempfile.mkstemp(suffix='.html', dir=str(tmpdir))
     # Write some uncompressible data
     with os.fdopen(html_fd, mode='w') as tmp_f:
         tmp_f.write("X")
@@ -80,7 +80,7 @@ def test_creates_same_gzip_file(tmpdir):
     # gzip will create a slightly different file because it includes
     # a timestamp in the compressed file by default. This can cause
     # problems for some caching strategies.
-    html_fd, a_html_filename = tempfile.mkstemp(suffix='.html', dir=tmpdir)
+    html_fd, a_html_filename = tempfile.mkstemp(suffix='.html', dir=str(tmpdir))
     with os.fdopen(html_fd, mode='w') as tmp_f:
         tmp_f.write("Some compressible test data " + '0' * 32)
     a_gz_filename = a_html_filename + '.gz'
@@ -97,7 +97,7 @@ def test_overwrites_gzip_file(tmpdir):
     # The plugin walks over the output content after the finalized signal
     # so it is safe to assume that the file exists (otherwise walk would
     # not report it). Therefore, create a dummy file to use.
-    _, a_html_filename = tempfile.mkstemp(suffix='.html', dir=tmpdir)
+    _, a_html_filename = tempfile.mkstemp(suffix='.html', dir=str(tmpdir))
     pelican_zopfli.create_gzip_file(a_html_filename, True)
     assert not os.path.exists(a_html_filename + '.gz')
 
