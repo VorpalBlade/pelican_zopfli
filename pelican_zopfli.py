@@ -36,6 +36,8 @@ EXCLUDE_TYPES = {
     # Compressed types
     '.bz2',
     '.gz',
+    '.xz',
+    '.zstd',
 
     # Audio types
     '.aac',
@@ -44,10 +46,12 @@ EXCLUDE_TYPES = {
     '.wma',
 
     # Image types
+    '.avif',
     '.gif',
-    '.jpg',
     '.jpeg',
+    '.jpg',
     '.png',
+    '.webp',
 
     # Video types
     '.avi',
